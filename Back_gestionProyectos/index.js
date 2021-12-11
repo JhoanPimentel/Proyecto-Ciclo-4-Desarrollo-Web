@@ -3,7 +3,18 @@ import {initDatabase,
     readUsuarioByDocumento, 
     readUsuarioByRol,
     readUsuarioByEstado,
-    createUsuario
+    createUsuario,
+    updateUsuario,
+    deleteUsuario,
+    readProyectos,
+    createProyecto,
+    readProyectoByEstado,
+    readProyectoByNomProyecto,
+    readproyectoByfase,
+    updateProyecto,
+    deleteProyecto
+    
+    
 } 
 from './data-access.js';
 import express from 'express';
@@ -25,10 +36,21 @@ type Query{
     usuariosByDocumento(documento: String):[Usuario]
     usuariosByRol(rol: String):[Usuario]
     usuariosByEstado(estado: String):[Usuario]
+    allProyectos:[Proyecto]
+    ProyectoByEstado:[Proyecto]
+    ProyectoByNomProyecto:[Proyecto]
+    proyectoByfase:[Proyecto]
 }
 
 type Mutation{
     insertUsuario(rol: String, estado: String, correo: String, nombre: String, documento: String): Usuario
+    updateUsuario(rol: String, estado: String, correo: String, nombre: String, documento: String): Usuario
+    deleteUsuario(documento: String): Usuario
+    deleteProyecto(id:String):Proyecto
+
+    
+    
+    
 }
 
 type Usuario{
@@ -39,6 +61,26 @@ type Usuario{
     documento: String
 }
 
+type Proyecto{
+    nombre_proyecto: String
+        lider: String
+        estado: String
+        presupuesto: String
+        fase: String
+        avances: Avances
+        docuemtoLider: String
+        estudiantesinscritos: String
+        fechaInicio: String
+        fechaTerminacion: String
+        objetivosEspecificos: String
+        objetivosGenerales: String
+        
+}
+
+type Avances{
+    observaciones: String
+    retroalimentacion: String
+}
 
 
 `)
@@ -70,13 +112,66 @@ let createOneUsuario = async (args) =>{
     return usuarios;
 }
 
+let updateOneUsuario = async (args) =>{
+    const usuario = await updateUsuario(args);
+    return usuario;
+}
+
+let deleteOneUsuario = async (documento) =>{
+    const usuario = await deleteUsuario(documento);
+    return usuario;
+}
+
+let getAllProyectos = async (args) =>{
+    const proyectos = await readProyectos()
+    return proyectos;
+}
+
+let createOneProyecto = async (args) =>{
+    const proyectos = await createProyecto(args);
+    return proyectos;
+}
+
+let getProyectoByEstado = async (args) =>{
+    const proyectos = await readProyectoByEstado(args);
+    return proyectos;
+}
+
+let getProyectoByNomProyecto= async (args) =>{
+    const proyectos = await readProyectoByNomProyecto(args);
+    return proyectos;
+}
+
+let getProyectoByfase = async(args)=>{
+    const proyectos = await readproyectoByfase(args);
+    return proyectos;
+}
+
+let updateOneProyecto = async (args) =>{
+    const usuario = await updateProyecto(args);
+    return usuario;
+}
+    
+let deleteOneProyecto = async (documento) =>{
+    const usuario = await deleteProyecto(documento);
+    return usuario;
+}   
+    
+    
 
 const root={
     allUsuarios: getAllUsuarios,
     usuariosByDocumento: getUsuarioByDocumento,
     usuariosByRol: getUsuariosByRol,
     usuariosByEstado: getUsuariosByEstado,
-    insertUsuario: createOneUsuario
+    insertUsuario: createOneUsuario,
+    updateUsuario: updateOneUsuario,
+    deleteUsuario: deleteOneUsuario,
+    allProyectos: getAllProyectos,
+    insertProyecto: createOneProyecto,
+    ProyectoByEstado: getProyectoByEstado,
+    ProyectoByNomProyecto:getProyectoByNomProyecto,
+    proyectoByfase:getProyectoByfase
 }
 
 
