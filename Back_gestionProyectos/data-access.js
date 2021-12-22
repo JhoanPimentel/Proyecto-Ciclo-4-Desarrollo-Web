@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+/*import mongoose from "mongoose";
 
 let UsuarioModel;
 let ProyectoModel;
@@ -27,10 +27,10 @@ export const initDatabase =()=>{
         estado: String,
         presupuesto: String,
         fase: String,
-        avances: {
-            observaciones: String,
-            retroalimentacion: String
-        },
+        avances: [
+            {observaciones: String},
+            {retroalimentacion: String}
+        ],
         docuemtoLider: String,
         estudiantesinscritos: String,
         fechaInicio: String,
@@ -110,6 +110,7 @@ export const readProyectos = async()=>{
     return proyectos;
 }
 
+
 export const createProyecto = async(Dproyect)=>{
     const proyecto = new ProyectoModel({
         nombre_proyecto: Dproyect.nombre_proyecto,
@@ -117,10 +118,10 @@ export const createProyecto = async(Dproyect)=>{
         estado: Dproyect.estado,
         presupuesto: Dproyect.presupuesto,
         fase: Dproyect.fase,
-        avances: {
-            observaciones: Dproyect.observaciones,
-            retroalimentacion: Dproyect.retroalimentacion
-        },
+        avances:[ 
+            {observaciones: Dproyect.observaciones},
+            {retroalimentacion: Dproyect.retroalimentacion}
+        ],
         docuemtoLider: Dproyect.docuemtoLider,
         estudiantesinscritos: Dproyect.estudiantesinscritos,
         fechaInicio: Dproyect.fechaInicio,
@@ -183,3 +184,4 @@ export const deleteProyecto = async(args)=>{
     const proyecto = await ProyectoModel.deleteOne({id: args.id});
     return proyecto;
 }
+*/
